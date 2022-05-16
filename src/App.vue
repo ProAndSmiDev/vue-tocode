@@ -8,6 +8,12 @@
       <div class="note-header">
         <h1> {{ title }} </h1>
 
+        <Search
+            :value="search"
+            placeholder="Find your note"
+            @search="search = $event"
+        />
+
         <div class="icons">
           <svg :class="{'active' : isGrid}" @click="isGrid = true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
 
@@ -15,25 +21,28 @@
         </div>
       </div>
 
-      <Notes :notes="notes" @removeNote="removeNote" :isGrid="isGrid"/>
+      <Notes :notes="notesFilter" @removeNote="removeNote" :isGrid="isGrid"/>
     </div>
   </div>
 </template>
 
 <script>
-import Notes from "@/components/Notes";
-import Message from "@/components/Message";
+  import Notes from "@/components/Notes";
+  import Message from "@/components/Message";
   import NewNote from "@/components/NewNote";
+  import Search from "@/components/Search";
 
   export default {
     components: {
       Notes,
+      Search,
       Message,
       NewNote,
     },
     data() {
       return {
         title: 'Notes App',
+        search: '',
         message: null,
         isGrid: true,
         note: {
@@ -58,6 +67,21 @@ import Message from "@/components/Message";
           }
         ]
       };
+    },
+    computed: {
+      notesFilter() {
+        let array = this.notes,
+            search = this.search;
+
+        if(!search) return array;
+
+        search = search.trim().toLowerCase();
+        array = array.filter(function (item) {
+          if(item.title.toLowerCase().indexOf(search) !== -1) return item;
+        })
+
+        return array;
+      },
     },
     methods: {
       addNote () {
