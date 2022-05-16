@@ -1,6 +1,11 @@
 <template>
   <div class="notes">
-    <div class="note" :class="{'note--is-full' : !isGrid}" v-for="(note, index) in notes" :key="index">
+    <div
+        class="note"
+        :class="[{'note--is-full' : !isGrid}, `note--is-${note.difficult}`]"
+        v-for="(note, index) in notes"
+        :key="index"
+    >
       <div class="note-header">
         <p>{{ note.title }}</p>
         <p style="cursor: pointer;" @click="removeNote(index)">x</p>
