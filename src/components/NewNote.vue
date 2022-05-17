@@ -9,7 +9,7 @@
             name="notePriority"
             :value="difficult.name"
             class="new-note-priority__input"
-            :checked="difficult.isChecked"
+            v-model="note.difficult"
         />
         {{ difficult.name }}
       </label>
@@ -33,16 +33,13 @@ export default {
     return {
       priorities: [
         {
-          name:      'standard',
-          isChecked: true,
+          name: 'standard',
         },
         {
-          name:      'medium',
-          isChecked: false,
+          name: 'medium',
         },
         {
-          name:      'hard',
-          isChecked: false,
+          name: 'hard',
         },
       ]
     };

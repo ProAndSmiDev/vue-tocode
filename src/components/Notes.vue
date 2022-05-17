@@ -55,6 +55,8 @@ export default {
     background-color: #ffffff;
     transition: all .25s cubic-bezier(0.02, 0.01, 0.47, 1);
     box-shadow: 0 30px 30px rgba(0, 0, 0, 0.02);
+    border: 2px solid;
+    border-radius: 5px;
 
     &:hover {
       box-shadow: 0 30px 30px rgba(0, 0, 0, 0.04);
@@ -77,6 +79,18 @@ export default {
           }
         }
       }
+    }
+
+    &--is-standard {
+      border-color: green;
+    }
+
+    &--is-medium {
+      border-color: orange;
+    }
+
+    &--is-hard {
+      border-color: red;
     }
   }
 
